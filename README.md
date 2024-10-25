@@ -1,66 +1,82 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## GeoCRM
+Este projeto propõe um CRM automático, construído com base no banco de dados da Receita Federal. Ele utiliza Python e a biblioteca qsacnpj para capturar os dados iniciais e integrá-los ao banco de dados da aplicação. Com esses dados, a aplicação pode consumir diversas APIs, como Serasa, Google Maps e ChatGPT, para enriquecer o CRM e automatizar contatos e ações com leads e clientes.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+O objetivo principal é criar um CRM autônomo, que conecte-se diretamente com o ERP do cliente e traga leads potenciais e informações detalhadas de clientes já cadastrados, oferecendo uma interface integrada para análises, perfis personalizados e mensagens automáticas.
 
-## About Laravel
+### Funcionalidades
+- Capturar e armazenar a base completa de CNPJs da Receita Federal;
+- Tratar e exibir os dados capturados, com filtros personalizados para uma visualização detalhada;
+- Consultar dados de CNPJs individualmente ou em grupos, através de APIs como Google Maps, para aprimorar rotas e localização;
+- Consultar dados de CNPJs na API do Serasa para obter informações financeiras;
+- Conectar-se ao ERP do cliente para acessar dados de clientes existentes e seu faturamento;
+- Conectar-se ao ERP para obter dados de produtos e vendas;
+- Gerar perfis personalizados de clientes com base nos dados do ChatGPT, aplicando um prompt predefinido;
+- Criar catálogos exclusivos de produtos com base nos perfis gerados, usando prompts personalizados no ChatGPT;
+- Com base nos perfis e catálogos criados, criar scripts de mensagens automáticas direcionadas a cada cliente;
+- Integrar com a API do WhatsApp para iniciar conversas automáticas com clientes, usando os scripts criados, e automatizar buscas e contatos;
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Requisitos
+- Docker
+- PHP
+- Composer
+- Python
+- Biblioteca qsacnpj
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Instalação
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+#### Clone o repositório:
+```bash
+git clone https://github.com/txrangel/PowerBI-Embedded-Laravel.git
+cd PowerBI-Embedded-Laravel
+```
 
-## Learning Laravel
+#### Iniciar o servidor:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```bash
+composer install
+./vendor/bin/sail up
+npm i
+npm run dev
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+#### Rodar as migrações:
+```bash
+./vendor/bin/sail artisan migrate
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Melhorias Futuras
 
-## Laravel Sponsors
+#### Segurança e Controle de Acesso
+- Implementação de controle de acesso com perfis e permissões de usuários;
+- Controle de funcionalidades baseado em planos de assinatura, para disponibilizar recursos específicos de acordo com o plano contratado.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+#### Ideias adicionais
+- Melhorar a integração com ERPs para tornar o CRM plug-and-play com os principais sistemas do mercado.
 
-### Premium Partners
+- Análise de Tendências e Segmentação Dinâmica:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Com base nos dados capturados do Google Maps (localização) e Serasa (dados financeiros), o sistema pode identificar tendências regionais e segmentar clientes por comportamento de consumo ou capacidade de compra. Isso permitiria ações de marketing mais direcionadas, como campanhas por região ou segmento de perfil econômico.
 
-## Contributing
+- Previsão de Demanda e Sazonalidade:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Com os dados históricos de vendas e de clientes do ERP, aplicar modelos preditivos para antecipar sazonalidades e preparar estratégias de marketing. Um recurso como esse pode ser especialmente útil para o planejamento de estoque e campanhas sazonais, como ofertas específicas durante datas comemorativas.
 
-## Code of Conduct
+- Indicadores de Engajamento e Conversão:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Implementar métricas de engajamento que monitorem o sucesso das interações automáticas (via WhatsApp ou email). Isso poderia mostrar taxas de resposta, agendamento de reuniões ou vendas geradas a partir dos scripts automatizados, dando insights para ajustes nos prompts e nas mensagens.
 
-## Security Vulnerabilities
+- Painel de Recomendação Inteligente:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Integrar uma seção onde, com base nos perfis e histórico de interação, o sistema recomende ações específicas para cada cliente. Exemplo: “Enviar proposta de produto X com desconto”, ou “Agendar ligação de follow-up”. Essas sugestões poderiam ser geradas automaticamente com base em dados passados e perfil do cliente, gerando engajamento mais assertivo.
 
-## License
+- Ferramenta de Feedback e NPS (Net Promoter Score):
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Após uma interação ou compra, enviar automaticamente pesquisas de satisfação para clientes e leads, permitindo medir o NPS e a qualidade do atendimento. Esse feedback poderia ser integrado ao perfil do cliente no CRM, ajudando a refinar futuras interações.
+
+- Central de Documentos Automatizada:
+
+Para facilitar as transações e a comunicação, permitir o upload e o envio de documentos como contratos ou propostas diretamente na plataforma, com automação para notificações e pedidos de assinatura. Isso adicionaria eficiência no ciclo de vendas e simplificaria o fechamento de negócios.
+
+- Integração com Redes Sociais e Scoring de Leads:
+
+Usar APIs de redes sociais para analisar dados públicos e monitorar menções de empresas ou produtos. Junto com o Serasa, isso ajudaria a criar um "scoring" para leads, qualificando-os automaticamente para facilitar a abordagem mais adequada.
